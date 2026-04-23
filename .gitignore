@@ -1,0 +1,17 @@
+# Remix IDE
+.deps/
+.states/
+artifacts/
+
+# Compiled artifacts
+solidity/**/*.json
+token/**/*.json
+staking/**/*.json
+
+# Remix config
+.prettierrc.json
+remix.config.json
+
+# OS
+.DS_Store
+Thumbs.db
