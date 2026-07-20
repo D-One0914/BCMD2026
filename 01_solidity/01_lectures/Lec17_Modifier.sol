@@ -14,33 +14,44 @@ pragma solidity ^0.8.20;
  */
 
 contract Lec17_Modifier {
-
+    event ModifierExecutedBefore(uint256 input);
+    event ModifierExecutedAfter(uint256 input);
     event ActionExecuted(address indexed caller);
-    
-    error NotOwner();
-    error InvalidNumber();
 
+    error NotOwner();
+    error NotGT10();
+
+   
+    uint256 public multipler;
     address public owner;
 
+    // Owner만 실행 가능한 모디파이어
     modifier onlyOwner() {
         if (msg.sender != owner) revert NotOwner();
         _;
     }
 
-    modifier checkIsOne(uint256 num) {
+    // 함수 로직 실행 전
+    modifier beforeExecution(uint256 input) {
+        emit ModifierExecutedBefore(input);
         _;
-        if (num != 1) revert InvalidNumber();
+    }
+
+    // 함수 로직 실행 후
+    modifier afterExecution(uint256 input) {
+        _;
+        emit ModifierExecutedAfter(input);
     }
 
     constructor() {
         owner = msg.sender;
     }
 
-    function ownerAction() external onlyOwner {
-        emit ActionExecuted(msg.sender);
+    function actionBefore() external beforeExecution(2) {
+       emit ActionExecuted(msg.sender);
     }
 
-    function numberAction(uint256 num) external checkIsOne(num) {
+    function actionAfter() external afterExecution(2) {
         emit ActionExecuted(msg.sender);
     }
 }

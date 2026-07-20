@@ -31,10 +31,11 @@ SimpleBank
 */
 
 contract SimpleBank {
+    // TODO: User 구조체를 작성
     struct User {
         string name;
-        uint256 age;
-        uint256 balance;
+        // TODO: age (uint256)
+        // TODO: balance (uint256);
     }
 
     mapping(address => User) private users;
