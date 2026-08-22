@@ -26,7 +26,7 @@ contract SimpleToken {
     uint256 public totalSupply;
     mapping(address user => uint256 balance) public balanceOf;
 
-    error InsufficentBalance();
+    error InsufficientAmount();
 
     event Transfer(address indexed from, address indexed to, uint256 amount);
 
@@ -46,7 +46,7 @@ contract SimpleToken {
         uint256 balance = balanceOf[msg.sender];
         
         if (balance < _amount) {
-            revert InsufficentBalance();
+            revert InsufficientAmount();
         }
 
         unchecked {

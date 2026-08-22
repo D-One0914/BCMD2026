@@ -7,14 +7,14 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 // openzeppelin: https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts
 // Wei <-> Ether 변환: https://eth-converter.com/
 
-contract MyBurnableToken is ERC20, Ownable {
+contract StakingToken is ERC20, Ownable {
 
-    	constructor() ERC20("MyBurnableToken", "mbtk") Ownable(msg.sender) {
-        		_mint(msg.sender, 100_000 ether);
-    	}
+    constructor() ERC20("StakingToken", "st") Ownable(msg.sender) {
+        _mint(msg.sender, 1_000_000 ether);
+    }
 
-    	function mint(address to, uint256 amount) external onlyOwner {
-        		_mint(to, amount);
-    	}
+    function mint(address to, uint256 amount) external  onlyOwner {
+        _mint(to, amount);
+    }
 
 }
