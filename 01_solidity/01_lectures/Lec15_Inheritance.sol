@@ -59,8 +59,12 @@ contract Lec15_Father{
         return "Kim";
     }
     
-    function getBalance() public view virtual returns(uint256){
+    function getBalance() public view virtual returns(uint256) {
         return fatherBalance;
+    }
+
+    function getPrivateValue() private view virtual returns(uint256) {
+        return privateValue;
     }
     
 }
