@@ -95,7 +95,7 @@ contract Lec15_Son is Lec15_Father {
     }
 
     function getBalance() public view override returns(uint256) {
-        return fatherBalance; // Father의 getBalance 오버라이딩
+        return fatherBalance + 100; // Father의 getBalance 오버라이딩
     }
 }
 
