@@ -107,7 +107,6 @@ contract Lec07_Example_2 {
 }
 
 // 상태 지정자 - view, 없음, pure
-
 contract Lec07_Example_3 {
 
     // 상태 변수
@@ -166,97 +165,17 @@ contract Lec07_Example_4 {
         age = 30;
     }
 
-
-
-
 }
 
+// constructor(생성자)
+contract Lec07_Example_5 {
 
+    uint256 public num1 = 99;
+    uint256 public num2 = 99;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-contract Lec07_Visibility_Functions {
-
-    uint256 public init = 55; 
-
-    uint256 public publicValue = 123;
-    uint256 internal internalValue = 1234;
-    uint256 intervalue2 = 1234;
-    uint256 private privateValue = 456;
-    // uint256 external externalValue =1; // 내부접근이 불가능하므로 컴파일 오류
-    string public publicString = "";
-   
-    constructor() {
-        init = 99;
-    }
-
-    function externalFunction() external {
-        publicValue = 1234567;
-    }
-
-    function externalViewFunction() external view returns (uint256) {
-        return publicValue;
-    }
-
-    function publicViewFunction() public view returns (uint256) {
-        return publicValue;
-    }
-
-    function publicPureFunction(uint256 _a, uint256 _b) public pure returns (uint256) {
-        return _a + _b;
-    }
-
-    function internalPureFunction() internal pure returns (uint256) {
-        return 5;
+    // 생성자 - 스마트 컨트랙트 배포시 실행되는 특수 함수 (1회 실행)
+    constructor(uint256 _num2) {
+        num2 = _num2;
     } 
-
-    function getTotalValue() external view returns (uint256) {
-        // uint256 callExteneralFunction = externalViewFunction(); // 내부접근이 불가능하므로 컴파일 오류
-        uint256 callExteneralFunction = this.externalViewFunction(); // this를 통해 외부접근으로 함수 호출
-        uint256 callPublicFunction = publicViewFunction();
-        uint256 callInternalFunction = internalPureFunction();
-        uint256 result = callExteneralFunction + callPublicFunction + callInternalFunction;
-        return result;
-    }
-
-    function getTotalValueNamed() external view returns (uint256 result) {
-        uint256 callExteneralFunction = this.externalViewFunction();
-        uint256 callPublicFunction = publicViewFunction();
-        uint256 callInternalFunction = internalPureFunction();
-        result = callExteneralFunction + callPublicFunction + callInternalFunction;
-    }
-
-    function getTwoRetunrs() external pure returns (uint256, int256) {
-        return (12, -12);
-    }
-
-    function getTwoRetunrsNamed() external pure returns (uint256 postive, int256 negative) {
-        postive = 12;
-        negative = -12;
-    }
-
-    function memoryName(string memory _name1) public {
-        _name1 = "AAA";
-        publicString = _name1;
-    }
-
-    function calldataName(string calldata _name1) public {
-        //_name1 = "BBB"; // calldata는 읽기전용(read-only)이므로 변경불가
-        publicString = _name1;
-    }
 
 }
