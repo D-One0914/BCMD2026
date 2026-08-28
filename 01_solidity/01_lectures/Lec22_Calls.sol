@@ -55,6 +55,19 @@ contract Safe {
 
 }
 
+contract Safe2 {
+
+    event Deposit(address indexed addr, uint256 amount);
+
+    uint256 public balance;
+
+    function deposit(uint256 _amount) external {
+        balance += _amount + 10;
+        emit Deposit(msg.sender, _amount);
+    }
+
+}
+
 contract Lec22_CallWithNew {
 
     Safe public safe;
@@ -143,6 +156,10 @@ contract Lec22_CallWithDelegateCall {
 
     function getSafeBalance() external view returns (uint256) {
         return Safe(safe).balance();
+    }
+
+    function updateSafe(address _safe) external {
+        safe = _safe; 
     }
 
 }

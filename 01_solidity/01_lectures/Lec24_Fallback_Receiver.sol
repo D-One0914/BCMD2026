@@ -40,6 +40,8 @@ contract Lec24_Sender {
 
     // send/transfer로 ETH 전송시, 수신 컨트랙트는 최대 2300 gas만 전달받음
     function sendWithSend(address _to) external payable returns (bool) {
+        // bool success = payable(_receiver).send(msg.value);
+        // require(success, "send failed");
         return payable(_to).send(msg.value);
     }
 

@@ -90,7 +90,7 @@ contract SimpleStaking is Ownable {
                         스테이킹 전 balanceOf[Alice] = 0
                         rewardPerTokenAccumulated = 0
                         rewardSnapshot[Alice] = rewardPerTokenAccumulated = 0
-                        unallocatedRewards = 10
+                        unallocatedRewards = 100
                         스테이킹 후 totalStaked (100초 ~ 이후 구간) : 1
                         스테이킹 후 balanceOf[Alice] = 1
 
@@ -143,9 +143,9 @@ contract SimpleStaking is Ownable {
                         rewardPerTokenAccumulated = 0
                         rewardSnapshot[Alice] = rewardPerTokenAccumulated = 0
                         rewards[Alice] = 0
-                        unallocatedRewards = 10
-                        스테이킹 후 totalStaked = 2
-                        스테이킹 후 balanceOf[Alice] = 2
+                        unallocatedRewards = 100
+                        스테이킹 후 totalStaked = 1
+                        스테이킹 후 balanceOf[Alice] = 1
 
         - 100초 ~ 300초 (200초 경과)
         - 300초        :  Bob 3개 스테이킹 
@@ -179,12 +179,12 @@ contract SimpleStaking is Ownable {
                         rewardPerTokenAccumulated = 200(100초 ~ 300초 구간) + 175(300초 ~ 1000초 구간) = 375
                         rewardSnapshot[Alice] = rewardPerTokenAccumulated = 375
 
-                        출금 후 rewardSnapshot[Alice] (1000초 ~ 이후 구간) = rewardPerTokenAccumulated = 200
+                        출금 후 rewardSnapshot[Alice] (1000초 ~ 이후 구간) = rewardPerTokenAccumulated = 375
                         출금 후 totalStaked = 4 - 1 = 3
-                        출금 후 balanceOf[Alice] = 0 
+                        출금 후 balanceOf[Alice] = 1 
                         출금 후 reward[Alice] = 200 (100초 ~ 200초 구간) + 175 (300초 ~ 1000초 구간) = 375
 
-        1000초 당시 Alice의 총 예상 보상량 - 출금 했으므로 연산 후 저장 O, rewardSnapshot[Alice] 업데이트
+        1000초 당시 Alice의 총 확정 보상량 - 출금 했으므로 연산 후 저장 O, rewardSnapshot[Alice] 업데이트
         rewards[Alice] = 이전 확정 보상 + ((총 구간 토큰 1개당 누적 보상 - 유저의 마지막 보상 기준값) * 유저 스테이킹 수량)
         rewards[Alice] =  0 + (375 - 0) * 1 = 375                
 
@@ -193,11 +193,12 @@ contract SimpleStaking is Ownable {
         rewards[Bob] =  0 + (375 - 200) * 3 = 175 * 3 = 525       
 
         - 1000초 ~ 1300초  (300초 경과)
+
         - 1300초    : Alice 7개 스테이킹
-                    스테이킹 전 totalStaked (100초 ~ 300초 구간) : 3
+                    스테이킹 전 totalStaked (1000초 ~ 1300초 구간) : 3
                     스테이킹 전 balanceOf[Alice] = 0
                     스테이킹 전 rewards[Alice] = 375
-                    스테이킹 전 rewardSnapshot[Alice] = 200 
+                    스테이킹 전 rewardSnapshot[Alice] = 375 
 
                     1000초 ~ 1300초 구간의 토큰 1개당 보상량 
                         = (구간 소요 시간(초) / 총 스테이킹 량) * 초당 보상량 
@@ -211,12 +212,13 @@ contract SimpleStaking is Ownable {
                     스테이킹 후 balanceOf[Alice] = 7 
                     스테이킹 후 rewards[Alice] = 375
 
-        - 200초 후 1400초 당시 Alice, bob 총 예상 보상량 - 스테이킹, 출금, 클레임 하지 않았으므로 저장 X, 오직 연산
+        - 200초 후 1500초 당시 Alice, bob 총 예상 보상량 - 스테이킹, 출금, 클레임 하지 않았으므로 저장 X, 오직 연산
         - totalStaked = 10
-        - 1000초 ~ 1300초 구간의 토큰 1개당 보상량 
+
+        - 1300초 ~ 1500초 구간의 토큰 1개당 보상량 
             = (구간 소요 시간(초) / 총 스테이킹 량) * 초당 보상량 
             = (200 / 10) * 1 = 20 
-        - 예상 rewardPerTokenAccumulated =  475 + 20(1000초 ~ 1300초 구간) = 495    
+        - 예상 rewardPerTokenAccumulated =  475 + 20(1300초 ~ 1500초 구간) = 495    
         
         - Alice
         rewards[Alice] = 이전 확정 보상 + ((총 구간 토큰 1개당 누적 보상 - 유저의 마지막 보상 기준값) * 유저 스테이킹 수량)             
@@ -263,7 +265,7 @@ contract SimpleStaking is Ownable {
         /*
             updateReward 역할
             1. 미할당 보상 누적 (스테이킹 참여자 부재 구간)
-            2. accRewardPerToken 최신화
+            2. rewardPerTokenAccumulated 최신화
             3. rewardLastUpdateTime 최신화
             4. _account의 예상 보상을 확정 보상으로 저장 (rewards[_account])
             5. _account의 스냅샷 최신화 (rewardSnapshot[_account])

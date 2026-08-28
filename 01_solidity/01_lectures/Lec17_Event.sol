@@ -25,7 +25,7 @@ pragma solidity ^0.8.0;
     emit Transfer(msg.sender, to, amount);
 */
 
-contract Lec18_Event {
+contract Lec17_Event {
     event Executed(address indexed executor, uint256 timestamp);
 
     function execute() external {

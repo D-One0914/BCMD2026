@@ -13,15 +13,13 @@ pragma solidity ^0.8.20;
      
  */
 
-contract Lec17_Modifier {
+contract Lec18_Modifier {
     event ModifierExecutedBefore(uint256 input);
     event ModifierExecutedAfter(uint256 input);
     event ActionExecuted(address indexed caller);
 
     error NotOwner();
-    error NotGT10();
 
-   
     uint256 public multipler;
     address public owner;
 

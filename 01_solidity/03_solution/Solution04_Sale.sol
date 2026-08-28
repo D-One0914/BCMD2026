@@ -8,7 +8,7 @@ Lec16 ~ Lec20 학습 내용을 바탕으로 작성하는 실습입니다.
 Practice04_Sale.sol
 
 SaleWithVault 컨트랙트는 buy 함수를 통해 ETH를 받고,
-받은 ETH를 Vault 컨트랙트에 보관하는 스마트 컨트랙트입니다.
+받은 ETH를 Vault 컨트랙트(이전 실습에서 만든 Vault.sol)에 보관하는 스마트 컨트랙트입니다.
 
 1. IVault 인터페이스를 작성하세요.
     - getBalance() external view returns (uint256) 함수를 선언하세요.
